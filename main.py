@@ -19,6 +19,7 @@ class Blog(db.Model):
         self.body = body
 
 
+
 @app.route('/blog', methods=['POST', 'GET'])
 def main_blog_page():
     entries =  Blog.query.all()
@@ -34,7 +35,17 @@ def add_post():
         entry_body = request.form['entry_body']
         # error checks here for blank title or body
 
-        new_entry = Blog(blog_title,entry_body)
+        title_error=""
+        body_error=""
+
+        if not blog_title or not entry_body:
+            if not blog_title:
+                title_error="Title is blank. Please enter a title."
+            if not entry_body:
+                body_error="Blog entry is blank. Please enter some content."
+            return render_template('newpost.html', title="Build-a-Blog", title_error=title_error, body_error=body_error, blog_title=blog_title, entry_body=entry_body)
+
+        new_entry=Blog(blog_title,entry_body)        
         db.session.add(new_entry)
         db.session.commit()
 
