@@ -22,8 +22,12 @@ class Blog(db.Model):
 
 @app.route('/blog', methods=['POST', 'GET'])
 def main_blog_page():
-    entries =  Blog.query.all()
-    return render_template('blog.html',title="Build-a-Blog", entries=entries) 
+    blog_id = request.args.get('id')
+    if not blog_id:
+        entries =  Blog.query.all()
+        return render_template('blog.html',title="Build-a-Blog", entries=entries)
+    single_entry = Blog.query.get(blog_id)
+    return render_template('entry_details.html',title="Blog Entry", entry=single_entry) 
 
 
 @app.route('/newpost', methods=['POST', 'GET'])
@@ -48,11 +52,11 @@ def add_post():
         new_entry=Blog(blog_title,entry_body)        
         db.session.add(new_entry)
         db.session.commit()
+      
+        single_entry = str(new_entry.id)
 
-
-
-    entries = Blog.query.all()
-    return render_template('blog.html', title="Build-a-Blog", entries=entries)
+    
+        return redirect('/blog?id='+single_entry)
 
 
 if __name__ == '__main__':
