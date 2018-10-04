@@ -11,6 +11,7 @@
         {% for entry in entries %}
             <h2><a href="/blog?id={{entry.id}}">{{entry.title}}</a></h2>
             <p>{{entry.body}}</p>
+            <p>Posted on: {{entry.post_date}}</p>
             <hr />
         {% endfor %}
 
