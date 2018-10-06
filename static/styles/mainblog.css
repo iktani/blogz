@@ -1,0 +1,67 @@
+.mainblog {
+    padding: 10px;
+    background-color: cadetblue;
+}
+
+.pageheaders {
+    text-align: center;
+}
+
+.blogpost {
+    background-color: lightblue;
+    border: 14px;
+    padding: 20px;
+    text-align: center;
+}
+
+nav {
+    background-color: lightgray;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 24px;
+}
+
+.newpost {
+    background-color: lightslategrey;
+    font-family: 'Times New Roman', Times, serif;
+    padding: 10px; 
+}
+
+.datetime {
+    font-style: italic;
+    font-size: 12px;
+}
+
+.error {
+    color: white;
+    font-style: italic;
+    font-weight: bold;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li {
+    float: left;
+    border-right: 2px solid #26190d;
+}
+
+li a {
+    display: block;
+    color: #26190d;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+
+li a:hover {
+    background-color: darkgray;
+}
+
+p {
+    font-size: 16px;
+}

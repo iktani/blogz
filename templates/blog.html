@@ -1,20 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-    
-    <hr />
+    <div class="mainblog">
+        <h1 class="pageheaders">{{page_title}}</h1>
+        {% if entries|length == 0 %}
+        <p>No blog entries yet</p>
+        {% else %}
 
-    {% if entries|length == 0 %}
-    <p>No blog entries yet</p>
-    {% else %}
+            {% for entry in entries %}
+                <h2><a href="/blog?id={{entry.id}}">{{entry.title}}</a></h2>
+                <p>{{entry.body}}</p>
+                <p class="datetime">Posted on: {{entry.post_date}}</p>
+                <hr />
+            {% endfor %}
 
-        {% for entry in entries %}
-            <h2><a href="/blog?id={{entry.id}}">{{entry.title}}</a></h2>
-            <p>{{entry.body}}</p>
-            <p>Posted on: {{entry.post_date}}</p>
-            <hr />
-        {% endfor %}
-
-    {% endif %}
-
+        {% endif %}
+    </div>
 {% endblock %}

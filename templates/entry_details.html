@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-    
-    <h2>{{entry.title}}</h2>
-    <p>{{entry.body}}</p>
-    <p>Posted on: {{entry.post_date}}</p>
-    <hr />
-
+    <div class="blogpost">
+        <h2>{{entry.title}}</h2>
+        <p>{{entry.body}}</p>
+        <p class="datetime">Posted on: {{entry.post_date}}</p>
+        <hr />
+    </div>
 
 {% endblock %}

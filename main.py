@@ -30,7 +30,7 @@ def main_blog_page():
     blog_id = request.args.get('id')
     if not blog_id:
         entries =  Blog.query.order_by(Blog.post_date.desc()).all()
-        return render_template('blog.html',title="Build-a-Blog", entries=entries)
+        return render_template('blog.html',title="Build-a-Blog", page_title="Build-a-Blog", entries=entries)
     single_entry = Blog.query.get(blog_id)
     return render_template('entry_details.html',title="Blog Entry", entry=single_entry) 
 
@@ -38,7 +38,7 @@ def main_blog_page():
 @app.route('/newpost', methods=['POST', 'GET'])
 def add_post():
     if request.method == 'GET':
-        return render_template('newpost.html', title="Add a new post")
+        return render_template('newpost.html', title="Add a new post", page_title="Add a new post")
     if request.method == 'POST':
         blog_title = request.form['blog_title']
         entry_body = request.form['entry_body']
@@ -52,7 +52,7 @@ def add_post():
                 title_error="Title is blank. Please enter a title."
             if not entry_body:
                 body_error="Blog entry is blank. Please enter some content."
-            return render_template('newpost.html', title="Build-a-Blog", title_error=title_error, body_error=body_error, blog_title=blog_title, entry_body=entry_body)
+            return render_template('newpost.html', title="Build-a-Blog", page_title="Add a new post", title_error=title_error, body_error=body_error, blog_title=blog_title, entry_body=entry_body)
 
         new_entry=Blog(blog_title,entry_body)        
         db.session.add(new_entry)
