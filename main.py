@@ -9,6 +9,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://blogz:blogsrus@localhos
 app.config['SQLALCHEMY_ECHO'] = True
 
 db = SQLAlchemy(app)
+app.secret_key = 'R}gXrv#G<"Ay=k.'
 
 class Blog(db.Model):
 
@@ -50,7 +51,7 @@ def main_blog_page():
     blog_id = request.args.get('id')
     if not blog_id:
         entries =  Blog.query.order_by(Blog.post_date.desc()).all()
-        return render_template('blog.html',title="Build-a-Blog", page_title="Build-a-Blog", entries=entries)
+        return render_template('blog.html',title="Blogz v1.0", page_title="Blogz v1.0", entries=entries)
     single_entry = Blog.query.get(blog_id)
     return render_template('entry_details.html',title="Blog Entry", entry=single_entry) 
 
@@ -67,11 +68,21 @@ def login():
             return redirect('/newpost')
         else:
             #TODO add error messages on validation
+            if user and user.password != password:
+                flash('password is incorrect', 'error')
+            if not user:
+                flash('username does not exist', 'error')
             if not username and not password:
                 # error message for both fields blank
-                # error message for username blank or invalid
-                # error message for password blank or invalid
-                return redirect('/login')
+                flash('input fields blank are blank, please enter a value', 'error')
+            if not username or not password:    
+                if not username:
+                    # error message for username blank or invalid
+                    flash('username field is blank, please enter a value', 'error')
+                if not password:
+                    # error message for password blank or invalid
+                    flash('password field is blank, please enter a value', 'error')
+            return redirect('/login')
                 
     return render_template('login.html')
 
@@ -87,26 +98,30 @@ def register():
 
         if not pattern.match(username):
             # return username error
+            flash('username is invalid, please re-enter', 'error')
 
         if not pattern.match(password):
             # return password error
+            flash('password is invalid, please re-enter', 'error')
 
         if password != verify:
-            # return password mismatch error    
+            # return password mismatch error
+            flash('passwords do not match, please re-enter', 'error')    
             
-
         existing_user = User.query.filter_by(username=username).first()
-        # if user doesnt exist, create new user, redirect to add new post page
+        if existing_user:
+            flash('username already exists, please re-enter', 'error')
 
+        if existing_user or not pattern.match(username) or not pattern.match(password) or password != verify:
+            return redirect('/signup')    
+        
+        # if user doesnt exist, create new user, add to db, redirect to add new post page
         if not existing_user:
             new_user = User(username,password)
             db.session.add(new_user)
             db.session.commit()
             session['username'] = username
             return redirect('/newpost')
-        else:
-            # user exists, cannot register duplicate username
-            return redirect('/signup')    
 
 
     return render_template('signup.html')        

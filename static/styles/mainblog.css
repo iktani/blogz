@@ -16,6 +16,8 @@
 
 nav {
     background-color: lightgray;
+    border: 10px;
+    padding: 15px;
     font-family: 'Times New Roman', Times, serif;
     font-size: 24px;
 }
@@ -32,7 +34,7 @@ nav {
 }
 
 .error {
-    color: white;
+    color: red;
     font-style: italic;
     font-weight: bold;
 }
