@@ -46,14 +46,26 @@ def require_login():
         return redirect('/login')
 
 
-@app.route('/blog', methods=['POST', 'GET'])
+@app.route('/blog')
 def main_blog_page():
+    # get params (if any) from url 
+    author_id=request.args.get('user')
+    if author_id:
+        entries = Blog.query.filter_by(owner_id=author_id).order_by(Blog.post_date.desc()).all()
+        author = User.query.get(author_id)
+        return render_template('blog.html',title="Blogz",page_title=author.username+"'s blog posts",entries=entries)
+
     blog_id = request.args.get('id')
     if not blog_id:
         entries =  Blog.query.order_by(Blog.post_date.desc()).all()
         return render_template('blog.html',title="Blogz v1.0", page_title="Blogz v1.0", entries=entries)
     single_entry = Blog.query.get(blog_id)
     return render_template('entry_details.html',title="Blog Entry", entry=single_entry) 
+
+@app.route('/')
+def index():
+    authors = User.query.all()
+    return render_template('index.html', title="Blogz v1.0", page_title="Blogz v1.0", authors=authors)
 
 
 @app.route('/login', methods=['POST', 'GET'])

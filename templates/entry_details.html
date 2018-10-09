@@ -4,7 +4,7 @@
     <div class="blogpost">
         <h2>{{entry.title}}</h2>
         <p>{{entry.body}}</p>
-        <p class="datetime">Posted on: {{entry.post_date}}</p>
+        <p class="datetime">Posted on: {{entry.post_date}} by <a href="/blog?user={{entry.owner_id}}">{{entry.owner.username}}</a></p>
         <hr />
     </div>
 

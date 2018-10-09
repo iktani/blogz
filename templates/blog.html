@@ -10,7 +10,7 @@
             {% for entry in entries %}
                 <h2><a href="/blog?id={{entry.id}}">{{entry.title}}</a></h2>
                 <p>{{entry.body}}</p>
-                <p class="datetime">Posted on: {{entry.post_date}}</p>
+                <p class="datetime">Posted on: {{entry.post_date}} by <a href="/blog?user={{entry.owner_id}}">{{entry.owner.username}}</a></p>
                 <hr />
             {% endfor %}
 
