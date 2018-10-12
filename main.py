@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template, session, flash
+from flask import Flask, request, redirect, render_template, session, flash, url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import re
@@ -50,14 +50,15 @@ def require_login():
 def main_blog_page():
     # get params (if any) from url 
     author_id=request.args.get('user')
+    page_num=request.args.get('page', 1, type=int)
     if author_id:
-        entries = Blog.query.filter_by(owner_id=author_id).order_by(Blog.post_date.desc()).all()
+        entries = Blog.query.filter_by(owner_id=author_id).order_by(Blog.post_date.desc()).paginate(page=page_num, per_page=2)
         author = User.query.get(author_id)
-        return render_template('blog.html',title="Blogz",page_title=author.username+"'s blog posts",entries=entries)
+        return render_template('blog.html',title="Blogz",page_title=author.username+"'s blog posts",entries=entries, user=author.id)
 
     blog_id = request.args.get('id')
     if not blog_id:
-        entries =  Blog.query.order_by(Blog.post_date.desc()).all()
+        entries =  Blog.query.order_by(Blog.post_date.desc()).paginate(per_page=3)
         return render_template('blog.html',title="Blogz v1.0", page_title="Blogz v1.0", entries=entries)
     single_entry = Blog.query.get(blog_id)
     return render_template('entry_details.html',title="Blog Entry", entry=single_entry) 

@@ -3,17 +3,31 @@
 {% block content %}
     <div class="mainblog">
         <h1 class="pageheaders">{{page_title}}</h1>
-        {% if entries|length == 0 %}
+        {% if entries.items|length == 0 %}
         <p>No blog entries yet</p>
         {% else %}
 
-            {% for entry in entries %}
+            {% for entry in entries.items %}
                 <h2><a href="/blog?id={{entry.id}}">{{entry.title}}</a></h2>
                 <p>{{entry.body}}</p>
                 <p class="datetime">Posted on: {{entry.post_date}} by <a href="/blog?user={{entry.owner_id}}">{{entry.owner.username}}</a></p>
                 <hr />
             {% endfor %}
-
+            {% for page_number in entries.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+                {% if page_number %}
+                    {% if entries.page == page_number %}
+                        {{ page_number }}
+                    {% else %}
+                        {% if user %}
+                            <a href="/blog?page={{page_number}}&user={{user}}">{{ page_number }}</a>
+                        {% else %}    
+                            <a href="/blog?page={{page_number}}">{{ page_number }}</a>
+                        {% endif %}    
+                    {% endif %}
+                {% else %}
+                    ...
+                {% endif %}
+            {% endfor %}                    
         {% endif %}
     </div>
 {% endblock %}
