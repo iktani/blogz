@@ -13,10 +13,11 @@
                 <p class="datetime">Posted on: {{entry.post_date}} by <a href="/blog?user={{entry.owner_id}}">{{entry.owner.username}}</a></p>
                 <hr />
             {% endfor %}
+            <div class="pagination">
             {% for page_number in entries.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
                 {% if page_number %}
                     {% if entries.page == page_number %}
-                        {{ page_number }}
+                        <a href="#" class="active">{{ page_number }}</a>
                     {% else %}
                         {% if user %}
                             <a href="/blog?page={{page_number}}&user={{user}}">{{ page_number }}</a>
@@ -27,7 +28,8 @@
                 {% else %}
                     ...
                 {% endif %}
-            {% endfor %}                    
+            {% endfor %}
+            </div>                    
         {% endif %}
     </div>
 {% endblock %}

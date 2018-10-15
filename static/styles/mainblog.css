@@ -1,6 +1,64 @@
+nav {
+    background-color: lightgray;
+    border: 0;
+    padding: 0;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 24px;
+}
+
+nav ul {
+    padding: 0;
+    display: inline-block;
+    margin: 0;
+    overflow: hidden;
+}
+
+nav ul li {
+    list-style: none;
+    display: inline-block;
+    margin-right: 6px;
+    border-right: 2px solid #26190d;
+}
+
+nav ul li a {
+    display: block;
+    color: #26190d;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+nav li a:hover {
+    background-color: darkgray;
+}
+
+
+nav .userlogin {
+    float: right;
+}
+
+.register {
+    background: lightsteelblue;
+    padding: 10px 20px;
+    border: 2px solid #dddddd;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+
+.login {
+    background: lightcyan;
+    padding: 10px 20px;
+    border: 2px solid #dddddd;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+
 .mainblog {
     padding: 10px;
-    background-color: cadetblue;
+    background-color: lightsteelblue;
+    border: 3px solid #dddddd;
+    border-radius: 3px;
+    margin-bottom: 20px;
 }
 
 .pageheaders {
@@ -9,23 +67,21 @@
 
 .blogpost {
     background-color: lightblue;
-    border: 14px;
-    padding: 20px;
+    border: 2px solid #dddddd;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    padding: 10 px 20px;
     text-align: center;
 }
 
-nav {
-    background-color: lightgray;
-    border: 10px;
-    padding: 15px;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 24px;
-}
 
 .newpost {
-    background-color: lightslategrey;
+    background-color: rgb(134, 140, 146);
+    border: 2px solid #dddddd;
+    border-radius: 3px;
+    margin-bottom: 20px;
     font-family: 'Times New Roman', Times, serif;
-    padding: 10px; 
+    padding: 10px 20px; 
 }
 
 .datetime {
@@ -39,31 +95,29 @@ nav {
     font-weight: bold;
 }
 
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+p {
+    font-size: 16px;
 }
 
-li {
+.pagination {
+    display: inline-block;
+    padding: 8px 16px;
+}
+
+.pagination a {
+    color: black;
     float: left;
-    border-right: 2px solid #26190d;
-}
-
-li a {
-    display: block;
-    color: #26190d;
-    text-align: center;
-    padding: 14px 16px;
+    padding: 8px 16px;
     text-decoration: none;
 }
 
-
-li a:hover {
-    background-color: darkgray;
+.pagination a.active {
+    background-color: white;
+    color: black;
+    border-radius: 5px;
 }
 
-p {
-    font-size: 16px;
+.pagination a:hover:not(.active) {
+    background-color: #ddd;
+    border-radius: 5px;
 }

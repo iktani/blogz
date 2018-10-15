@@ -53,21 +53,21 @@ def main_blog_page():
     author_id=request.args.get('user')
     page_num=request.args.get('page', 1, type=int)
     if author_id:
-        entries = Blog.query.filter_by(owner_id=author_id).order_by(Blog.post_date.desc()).paginate(page=page_num, per_page=2)
+        entries = Blog.query.filter_by(owner_id=author_id).order_by(Blog.post_date.desc()).paginate(page=page_num, per_page=3)
         author = User.query.get(author_id)
         return render_template('blog.html',title="Blogz",page_title=author.username+"'s blog posts",entries=entries, user=author.id)
 
     blog_id = request.args.get('id')
     if not blog_id:
         entries =  Blog.query.order_by(Blog.post_date.desc()).paginate(per_page=3)
-        return render_template('blog.html',title="Blogz v1.0", page_title="Blogz v1.0", entries=entries)
+        return render_template('blog.html',title="Blogz v1.0", page_title="Blogz v1.0 all posts", entries=entries)
     single_entry = Blog.query.get(blog_id)
     return render_template('entry_details.html',title="Blog Entry", entry=single_entry) 
 
 @app.route('/')
 def index():
     authors = User.query.all()
-    return render_template('index.html', title="Blogz v1.0", page_title="Blogz v1.0", authors=authors)
+    return render_template('index.html', title="Blogz v1.0", page_title="Blogz v1.0 user list", authors=authors)
 
 
 @app.route('/login', methods=['POST', 'GET'])
